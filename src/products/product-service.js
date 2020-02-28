@@ -19,6 +19,7 @@ getById(db , id){
     .where({id : id})
     .first()
 }
+
 }
 
 module.exports = ProductService;

@@ -1,6 +1,7 @@
 const express = require('express')
 const productService = require('./product-service')
-
+const SeedService = require('../reseed/reseedService')
+const { requireAuth } = require('../middleware/jwt-auth')
 const ProductRouter = express.Router();
 
 ProductRouter
@@ -15,6 +16,7 @@ ProductRouter
 
       ProductRouter
       .route('/sale')
+      .all(requireAuth)
       .get((req, res, next) => {
         productService.getSaleProducts(req.app.get('db'))
           .then(products => {
@@ -25,13 +27,25 @@ ProductRouter
 
 ProductRouter
       .route('/:itemId')
+      .all(requireAuth)
  .all(checkProductExists)
       .get((req, res, next) => {
         console.log(res.product)
         res.json(res.product)
       })
       
-       
+ 
+ProductRouter
+.route('/reseed')
+.get((req, res, next) => {
+  SeedService.reseedProducts(req.app.get('db'))
+  .then(products => {
+    res.status(201)
+  })
+  .catch(next)
+})
+
+
 
 
 

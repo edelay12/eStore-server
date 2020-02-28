@@ -1,12 +1,13 @@
 const express = require('express')
 const AdminService = require('./admin-service')
+const { requireAuth } = require('../middleware/jwt-auth')
 
 const AdminRouter = express.Router();
 const jsonParser = express.json();
 
 AdminRouter
     .route('/')
-    //   .all(checkAdmin auth)
+    .all(requireAuth)
     .get((req, res, next) => {
         AdminService.getAllProducts(req.app.get('db'))
           .then(products => {
@@ -38,7 +39,7 @@ AdminRouter
 
       AdminRouter
       .route('/:productid')
-      .all((req, res, next) => {
+      .all(requireAuth, (req, res, next) => {
         AdminService.getById(
            req.app.get('db'),
            req.params.productid
