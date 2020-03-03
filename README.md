@@ -1,26 +1,62 @@
-# Express Boilerplate!
+# Java Coffee Shop
 
-This is a boilerplate project used for starting new projects!
+#### This project was created by Evan Miller
+## To get started
 
-## Set up
+To get started
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+### Link to app: https//estore-app.emiller12.now.sh/
+- To use the shop, click the login button at the top of the site and use the demo login below or feel free to register and make a new account:
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+```bash
+Username: guest
+Password (case sensitive): Guest2020!
+```
+- This project is a full e-commerce coffee shop (minus payment for demo purpose) created using **React** , **CSS**, **Node**, **Express**, and **PostgreSQL**. Be sure to use the Admin page to demo the CRUD operations of the site.
 
-## Scripts
+![screen 1](https://github.com/edelay12/eStore-client/blob/master/public/screenshots/java_screen_1.png)
+
+![screen 2](https://github.com/edelay12/eStore-client/blob/master/public/screenshots/java_screen_2.png)
+
+![screen 3](https://github.com/edelay12/eStore-client/blob/master/public/screenshots/java_screen_2.png)
+
+
+## Usage
+### To run the server on a local host: 
+
+### Scripts
 
 Start the application `npm start`
 
 Start nodemon for the application `npm run dev`
 
-Run the tests `npm test`
+Run the tests in watch mode `npm test`
 
-## Deploying
+Migrate the dev database `npm run migrate`
 
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+Migrate the test database `npm run migrate:test`
+
+### Configuring Postgres
+
+For tests involving time to run properly, configure your Postgres database to run in the UTC timezone.
+
+1. Locate the `postgresql.conf` file for your Postgres installation.
+   1. E.g. for an OS X, Homebrew install: `/usr/local/var/postgres/postgresql.conf`
+   2. E.g. on Windows, _maybe_: `C:\Program Files\PostgreSQL\11.2\data\postgresql.conf`
+2. Find the `timezone` line and set it to `UTC`:
+
+
+## About this project
+### Server
+- The site delivers full user functionality, with, JWT Tokens, and JWT Token refresh, registration, secure login, and shopping cart save.
+All user functions are encrypted with proper security measures in mind. These measures include:
+JWT Tokens and Refresh are issued securly, while expiring along with the session if the user goes idle for more then 5 minutes
+Password incryption using the NPM library BCrypt, with secure hashing and salting rounds
+Cross Site Scripting (XSS) prevention on product adds and user registration
+KnexJS provides built in SQL injection prevention
+- Protected endpoints are authenticated through a JWT service middleware that checks for the API token in the header provided through the client.
+- All of the client side enviornmental variables are securly hidden in proper .env files.
+- Best RESTful practices were used when building the server.
+### Client
+- The client side uses React Router, with public and private routes.
+- Context API provides State management.
